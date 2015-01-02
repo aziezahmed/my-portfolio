@@ -5,4 +5,4 @@ A web-app for monitoring the performance of your stocks and shares portfolio.
 
 See Demo:
 ---------
-https://github.com/aziezahmed/my-portfolio
+http://aziezahmed.github.io/my-portfolio/
