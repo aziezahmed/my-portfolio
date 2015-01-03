@@ -1,12 +1,18 @@
 body {
     padding-top: 50px;
 }
-table.glyphicon-hover .glyphicon {
-    visibility: hidden;
+
+.table-icons {
+    width:28px;
 }
-table.glyphicon-hover td:hover .glyphicon {
-    visibility: visible;
+
+.glyphicon {
+  color: #999;
 }
+.glyphicon:hover {
+  color: #000;
+}
+
 input {
     max-width: 250px;
 }

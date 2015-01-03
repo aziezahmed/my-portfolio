@@ -54,22 +54,22 @@
             <table class="table table-hover table-striped glyphicon-hover">
                 <thead>
                     <tr>
-                        <th class="hidden-xs">Symbol</th>
+                        <th class="table-icons"></th>
+                        <th>Symbol</th>
                         <th>Name</th>
                         <th class="text-right">Price</th>
-                        <th class="text-right hidden-xs">Change</th>
+                        <th class="text-right">Change</th>
                         <th class="text-right">Shares</th>
                         <th class="text-right">Market Value</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="stock in stocks">
-                        <td class="hidden-xs">{{stock.symbol}} <span ng-click="deleteStock(stock)" class="delete_button glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </td>
+                        <td><small><span ng-click="deleteStock(stock)" class="delete_button glyphicon glyphicon-trash" aria-hidden="true"></span></small></td>
+                        <td>{{stock.symbol}}</td>
                         <td>{{stock.name}}</td>
                         <td class="text-right">{{stock.price | number:2}}</td>
-                        <td class="text-right hidden-xs"><span class="label" ng-class="changeClass(stock.change)">{{stock.change | number:2}}</span>
-                        </td>
+                        <td class="text-right"><span class="label" ng-class="changeClass(stock.change)">{{stock.change | number:2}}</span></td>
                         <td class="text-right">{{stock.shares}}</td>
                         <td class="text-right">{{stock.value | number:2}}</td>
                     </tr>

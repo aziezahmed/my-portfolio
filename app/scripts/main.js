@@ -6,7 +6,7 @@ angular.module('myPortfolioApp', [])
             $scope.stocks = [
                 {
                     symbol: 'YHOO',
-                    shares: 100
+                    shares: 50
                 }
             ];
 
@@ -28,6 +28,8 @@ angular.module('myPortfolioApp', [])
             }
 
             function fetchData() {
+
+
                 var quoteUrlPrefix = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(';
                 var quoteUrlSuffix = ')&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
                 var noOfSymbols = $scope.stocks.length;
@@ -44,44 +46,48 @@ angular.module('myPortfolioApp', [])
 
                 var quoteUrl = quoteUrlPrefix + encodeURI(symbolString) + quoteUrlSuffix;
 
-                $http({
-                    url: quoteUrl
-                }).success(function (quotes) {
+                if (noOfSymbols > 0) {
 
-                    var list = quotes.query.results.quote;
+                    $http({
+                        url: quoteUrl
+                    }).success(function (quotes) {
 
-                    if (!(list instanceof Array)) {
-                        list = new Array(list);
-                    }
+                        var list = quotes.query.results.quote;
 
-                    var noOfQuotes = list.length;
+                        if (!(list instanceof Array)) {
+                            list = new Array(list);
+                        }
 
-                    var totalPrice = 0;
+                        var noOfQuotes = list.length;
 
-                    for (var i = 0; i < noOfQuotes; i++) {
+                        var totalPrice = 0;
 
-                        $scope.stocks[i].symbol = list[i].Symbol;
+                        for (var i = 0; i < noOfQuotes; i++) {
 
-                        $scope.stocks[i].change = list[i].Change;
-                        $scope.stocks[i].name = list[i].Name;
+                            $scope.stocks[i].symbol = list[i].Symbol;
 
-                        $scope.stocks[i].price = list[i].LastTradePriceOnly;
-                        var price = ($scope.stocks[i].price * $scope.stocks[i].shares) / 100;
+                            $scope.stocks[i].change = list[i].Change;
+                            $scope.stocks[i].name = list[i].Name;
 
-                        $scope.stocks[i].value = price;
-                        totalPrice += price;
-                    }
+                            $scope.stocks[i].price = list[i].LastTradePriceOnly;
+                            var price = ($scope.stocks[i].price * $scope.stocks[i].shares) / 100;
 
-                    $scope.curr = totalPrice;
+                            $scope.stocks[i].value = price;
+                            totalPrice += price;
+                        }
 
-                });
+                        $scope.curr = totalPrice;
+
+                    });
+                } else {
+                    $scope.curr = '';
+                }
             }
 
             $scope.changeClass = function (change) {
-                if (change < 0){
+                if (change < 0) {
                     return 'label-danger';
-                }
-                else {
+                } else {
                     return 'label-success';
                 }
             };
@@ -96,8 +102,8 @@ angular.module('myPortfolioApp', [])
                         deleteIndex = i;
 
                     }
-                }            
-                
+                }
+
                 $scope.stocks.splice(deleteIndex, 1);
                 storeStocks();
                 fetchData();
@@ -115,7 +121,7 @@ angular.module('myPortfolioApp', [])
 
             };
 
-            if ($scope.stocks) {
-                fetchData();
-            }
+            fetchData();
+
+
   }]);
