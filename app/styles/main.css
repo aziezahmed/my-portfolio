@@ -6,10 +6,10 @@ body {
     width:28px;
 }
 
-.glyphicon {
+#portfolio_view .glyphicon {
   color: #999;
 }
-.glyphicon:hover {
+#portfolio_view .glyphicon:hover {
   color: #000;
 }
 

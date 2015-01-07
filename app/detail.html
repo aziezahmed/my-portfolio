@@ -1,0 +1,47 @@
+<div>
+    <h1 class="page-header">{{quote.Name}}</h1>
+    <p>
+        <a ng-href="#/"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>  Portfolio View</a>
+    </p>
+
+    <div class="container">
+        <div class="col-sm-3">
+            <h3 class="text-muted">Price</h3>
+            <h4>{{quote.LastTradePriceOnly | number:2}}</h4>
+        </div>
+        <div class="col-sm-3">
+            <h3 class="text-muted">Last Close Price</h3>
+            <h4>{{quote.PreviousClose | number:2}}</h4>
+        </div>
+        <div class="col-sm-3">
+            <h3 class="text-muted">Change</h3>
+            <h4>{{quote.Change}}</h4>
+        </div>
+        <div class="col-sm-3">
+            <h3 class="text-muted">% Change</h3>
+            <h4> {{quote.PercentChange}}</h4>
+        </div>
+        <div class="col-sm-3">
+            <h3 class="text-muted">Symbol</h3>
+            <h4>{{quote.Symbol}}</h4>
+        </div>
+        <div class="col-sm-3">
+            <h3 class="text-muted">Exchange</h3>
+            <h4>{{quote.StockExchange}}</h4>
+        </div>
+        <div class="col-sm-3">
+            <h3 class="text-muted">Year High</h3>
+            <h4>{{quote.YearHigh}}</h4>
+        </div>
+        <div class="col-sm-3">
+            <h3 class="text-muted">Year Low</h3>
+            <h4>{{quote.YearLow}}</h4>
+        </div>
+
+
+    </div>
+
+
+
+
+</div>

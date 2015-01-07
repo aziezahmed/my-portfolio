@@ -35,12 +35,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">My Portfolio</a>
+                <a class="navbar-brand" href="#/">My Portfolio</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="#">Overview</a>
+                        <a href="#/">Overview</a>
                     </li>
                 </ul>
             </div>
@@ -48,55 +48,14 @@
     </nav>
 
     <div class="container ">
-        <div ng-controller="PortfolioController">
-            <h1 class="page-header">My Portfolio</h1>
-            <p class="lead">Current Value: {{curr | number:2}}</p>
-            <table class="table table-hover table-striped glyphicon-hover">
-                <thead>
-                    <tr>
-                        <th class="table-icons"></th>
-                        <th>Symbol</th>
-                        <th>Name</th>
-                        <th class="text-right">Price</th>
-                        <th class="text-right">Change</th>
-                        <th class="text-right">Shares</th>
-                        <th class="text-right">Market Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="stock in stocks">
-                        <td><small><span ng-click="deleteStock(stock)" class="delete_button glyphicon glyphicon-trash" aria-hidden="true"></span></small></td>
-                        <td>{{stock.symbol}}</td>
-                        <td>{{stock.name}}</td>
-                        <td class="text-right">{{stock.price | number:2}}</td>
-                        <td class="text-right"><span class="label" ng-class="changeClass(stock.change)">{{stock.change | number:2}}</span></td>
-                        <td class="text-right">{{stock.shares}}</td>
-                        <td class="text-right">{{stock.value | number:2}}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h4 class="page-header">Add Symbol</h4>
-            
-            <form ng-submit="addSymbol()">
-                <div class="form-group">
-                    <label>Symbol</label>
-                    <input ng-model="symbolText" type="text" class="form-control" placeholder="Enter symbol, e.g. YHOO">
-                </div>
-                <div class="form-group">
-                    <label>Number of Shares</label>
-                    <input ng-model="numberOfSharesText" type="text" class="form-control" placeholder="Enter number of shares, e.g. 100">
-                </div>
-                <button type="submit" class="btn btn-default" value="add">Add</button>
-            </form>
-
-        </div>
+        <div ng-view></div>
     </div>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -117,6 +76,8 @@
 
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
+    <script src="scripts/portfolio-controller.js"></script>
+    <script src="scripts/stock-controller.js"></script>
     <!-- endbuild -->
 </body>
 
