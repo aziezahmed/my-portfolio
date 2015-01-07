@@ -1,3 +1,4 @@
+/* global angular */
 angular.module('myPortfolioApp').controller('PortfolioController', function PortfolioController($scope, $http) {
     'use strict';
     
@@ -53,7 +54,6 @@ angular.module('myPortfolioApp').controller('PortfolioController', function Port
             }).success(function (quotes) {
 
                 var list = quotes.query.results.quote;
-                console.info(list);
                 if (!(list instanceof Array)) {
                     list = new Array(list);
                 }

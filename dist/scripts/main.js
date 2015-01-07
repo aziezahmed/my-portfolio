@@ -1,1 +1,177 @@
-angular.module("myPortfolioApp",[]).controller("PortfolioController",["$scope","$http",function(s,o){"use strict";function e(){localStorage.stocks=JSON.stringify(s.stocks)}function t(){for(var e="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(",t=")&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=",r=s.stocks.length,c="",a=0;r>a;a++)c+='"',c+=s.stocks[a].symbol,c+='"',a+1!==r&&(c+=",");var l=e+encodeURI(c)+t;r>0?o({url:l}).success(function(o){var e=o.query.results.quote;e instanceof Array||(e=new Array(e));for(var t=e.length,r=0,c=0;t>c;c++){s.stocks[c].symbol=e[c].Symbol,s.stocks[c].change=e[c].Change,s.stocks[c].name=e[c].Name,s.stocks[c].price=e[c].LastTradePriceOnly;var a=s.stocks[c].price*s.stocks[c].shares/100;s.stocks[c].value=a,r+=a}s.curr=r}):s.curr=""}if(s.stocks=[{symbol:"YHOO",shares:50}],localStorage.stocks){s.stocks=[];for(var r=JSON.parse(localStorage.stocks),c=r.length,a=0;c>a;a++)s.stocks.push({symbol:r[a].symbol,shares:r[a].shares})}s.changeClass=function(s){return 0>s?"label-danger":"label-success"},s.deleteStock=function(o){for(var r=s.stocks.length,c=-1,a=0;r>a;a++)s.stocks[a].$$hashKey===o.$$hashKey&&(c=a);s.stocks.splice(c,1),e(),t()},s.addSymbol=function(){s.stocks.push({symbol:s.symbolText,shares:s.numberOfSharesText}),s.symbolText="",s.numberOfSharesText="",e(),t()},t()}]);
+/* global angular */
+angular.module('myPortfolioApp', ['ngRoute'])
+
+.config(function ($routeProvider) {
+    'use strict';
+    $routeProvider.when('/', {
+        controller: 'PortfolioController',
+        templateUrl: 'portfolio.html'
+    
+    }).when('/detail/:symbolId', {
+        controller: 'StockController',
+        templateUrl: 'detail.html'
+    
+    }).otherwise({
+        redirectTo: '/'
+    });
+});
+/* global angular */
+angular.module('myPortfolioApp').controller('PortfolioController', function PortfolioController($scope, $http) {
+    'use strict';
+    
+    $scope.stocks = [
+        {
+            symbol: 'YHOO',
+            shares: 50
+        }
+    ];
+ 
+    $scope.quotes = [];
+    
+    
+    if (localStorage.stocks) {
+        $scope.stocks = [];
+        var storred = JSON.parse(localStorage.stocks);
+        var numberOfSymbols = storred.length;
+
+        for (var i = 0; i < numberOfSymbols; i++) {
+            $scope.stocks.push({
+                symbol: storred[i].symbol,
+                shares: storred[i].shares
+            });
+        }
+    }
+
+    function storeStocks() {
+        localStorage.stocks = JSON.stringify($scope.stocks);
+    }
+
+    function fetchData() {
+
+        var quoteUrlPrefix = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(';
+        var quoteUrlSuffix = ')&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
+        var noOfSymbols = $scope.stocks.length;
+        var symbolString = '';
+
+        for (var i = 0; i < noOfSymbols; i++) {
+            symbolString += '"';
+            symbolString += $scope.stocks[i].symbol;
+            symbolString += '"';
+            if (i + 1 !== noOfSymbols) {
+                symbolString += ',';
+            }
+        }
+
+        var quoteUrl = quoteUrlPrefix + encodeURI(symbolString) + quoteUrlSuffix;
+
+        if (noOfSymbols > 0) {
+
+            $http({
+                url: quoteUrl
+            }).success(function (quotes) {
+
+                var list = quotes.query.results.quote;
+                if (!(list instanceof Array)) {
+                    list = new Array(list);
+                }
+                $scope.quotes = list;
+                var noOfQuotes = list.length;
+
+                var totalPrice = 0;
+
+                for (var i = 0; i < noOfQuotes; i++) {
+
+                    $scope.stocks[i].symbol = list[i].Symbol;
+
+                    $scope.stocks[i].change = list[i].Change;
+                    $scope.stocks[i].name = list[i].Name;
+
+                    $scope.stocks[i].price = list[i].LastTradePriceOnly;
+                    var price = ($scope.stocks[i].price * $scope.stocks[i].shares) / 100;
+
+                    $scope.stocks[i].value = price;
+                    totalPrice += price;
+                }
+
+                $scope.curr = totalPrice;
+
+            });
+        } else {
+            $scope.curr = '';
+        }
+    }
+
+    $scope.changeClass = function (change) {
+        if (change < 0) {
+            return 'label-danger';
+        } else {
+            return 'label-success';
+        }
+    };
+
+    $scope.deleteStock = function (param) {
+        var noOfSymbols = $scope.stocks.length;
+
+        var deleteIndex = -1;
+
+        for (var i = 0; i < noOfSymbols; i++) {
+            if ($scope.stocks[i].$$hashKey === param.$$hashKey) {
+                deleteIndex = i;
+
+            }
+        }
+
+        $scope.stocks.splice(deleteIndex, 1);
+        storeStocks();
+        fetchData();
+    };
+
+    $scope.addSymbol = function () {
+        $scope.stocks.push({
+            symbol: $scope.symbolText,
+            shares: $scope.numberOfSharesText
+        });
+        $scope.symbolText = '';
+        $scope.numberOfSharesText = '';
+        storeStocks();
+        fetchData();
+
+    };
+
+    fetchData();
+
+
+});
+/* global angular */
+angular.module('myPortfolioApp').controller('StockController', function StockController($scope, $http, $routeParams) {
+    'use strict';
+    $scope.quote = {};
+
+    var quoteUrl = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22' + $routeParams.symbolId + '%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
+
+    $http({
+        url: quoteUrl
+    }).success(function (quotes) {
+        var quote = quotes.query.results.quote;
+        $scope.quote = quote;
+    });
+
+    
+        
+    $scope.glyphClass = function (latestPrice,prevPrice) {
+        if (latestPrice < prevPrice) {
+            return 'glyphicon glyphicon-arrow-down';
+        } else {
+            return 'glyphicon glyphicon-arrow-up';
+        }
+    };    
+    $scope.changeClass = function (latestPrice,prevPrice) {
+        if (latestPrice < prevPrice) {
+            return 'label-danger';
+        } else {
+            return 'label-success';
+        }
+    };    
+
+
+});
