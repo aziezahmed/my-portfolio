@@ -1,16 +1,17 @@
 /* global angular */
-
-angular.module('myPortfolioApp', ['ngRoute', 'googlechart']).config(function ($routeProvider) {
+(function () {
     'use strict';
-    $routeProvider.when('/', {
-        controller: 'OverviewController',
-        templateUrl: 'overview.html'
+    angular.module('myPortfolioApp', ['ngRoute', 'googlechart']).config(function ($routeProvider) {
+        $routeProvider.when('/', {
+            controller: 'OverviewController',
+            templateUrl: 'overview.html'
 
-    }).when('/detail/:symbolId', {
-        controller: 'DetailController',
-        templateUrl: 'detail.html'
+        }).when('/detail/:symbolId', {
+            controller: 'DetailController',
+            templateUrl: 'detail.html'
 
-    }).otherwise({
-        redirectTo: '/'
+        }).otherwise({
+            redirectTo: '/'
+        });
     });
-});
+})();
