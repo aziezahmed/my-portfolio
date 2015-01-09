@@ -1,16 +1,15 @@
 /* global angular */
-angular.module('myPortfolioApp', ['ngRoute'])
 
-.config(function ($routeProvider) {
+angular.module('myPortfolioApp', ['ngRoute', "googlechart"]).config(function ($routeProvider) {
     'use strict';
     $routeProvider.when('/', {
-        controller: 'PortfolioController',
-        templateUrl: 'portfolio.html'
-    
+        controller: 'OverviewController',
+        templateUrl: 'overview.html'
+
     }).when('/detail/:symbolId', {
-        controller: 'StockController',
+        controller: 'DetailController',
         templateUrl: 'detail.html'
-    
+
     }).otherwise({
         redirectTo: '/'
     });
