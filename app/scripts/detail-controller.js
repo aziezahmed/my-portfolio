@@ -33,31 +33,31 @@ angular.module('myPortfolioApp').controller('DetailController', function StockCo
     $http({
         url: chartUrl
     }).success(function (quotes) {
-        var chart_data = quotes.query.results.row;
+        var chartData = quotes.query.results.row;
         
-        chart_data.reverse();
-        chart_data.pop();
+        chartData.reverse();
+        chartData.pop();
 
         $scope.chartObject = {};
 
         var rows = [];
 
-        for (var i = 0; i < chart_data.length; i++) {
+        for (var i = 0; i < chartData.length; i++) {
             var item = [];
-            var date_obj = {
-                v: new Date(chart_data[i].date)
-            }
-            var price_obj = {
-                v: chart_data[i].close
-            }
-            item.push(date_obj);
-            item.push(price_obj);
+            var dateObj = {
+                v: new Date(chartData[i].date)
+            };
+            var priceObj = {
+                v: chartData[i].close
+            };
+            item.push(dateObj);
+            item.push(priceObj);
             rows.push({
                 c: item
             });
         }
 
-        $scope.chartObject.type = "LineChart";
+        $scope.chartObject.type = 'LineChart';
         $scope.chartObject.options = {
             hAxis: {
                 showTextEvery: 1
@@ -65,21 +65,21 @@ angular.module('myPortfolioApp').controller('DetailController', function StockCo
             legend: 'none',
             'height': 300,
             'title': $scope.quote.symbol
-        }
+        };
         $scope.chartObject.data = {
-            "cols": [
+            'cols': [
                 {
-                    id: "t",
-                    label: "Date",
-                    type: "date"
+                    id: 't',
+                    label: 'Date',
+                    type: 'date'
                 },
                 {
-                    id: "s",
-                    label: "Price",
-                    type: "number"
+                    id: 's',
+                    label: 'Price',
+                    type: 'number'
                 }
             ],
-            "rows": rows
+            'rows': rows
         };
 
     });

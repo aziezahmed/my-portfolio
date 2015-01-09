@@ -28,12 +28,12 @@ angular.module('myPortfolioApp').controller('OverviewController', function Overv
 
     function fetchData() {
         var quoteUrlPrefix = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%22http%3A%2F%2Fdownload.finance.yahoo.com%2Fd%2Fquotes.csv%3Fs%3D';
-        var quoteUrlSuffix = '%26f%3Dsnl1c1%26e%3D.csv%22%20and%20columns%3D%22symbol%2Cname%2Cprice%2Cchange%22&format=json&diagnostics=true&callback='
+        var quoteUrlSuffix = '%26f%3Dsnl1c1%26e%3D.csv%22%20and%20columns%3D%22symbol%2Cname%2Cprice%2Cchange%22&format=json&diagnostics=true&callback=';
         var symbolString = Object.keys($scope.stocks).join(',');
 
         var quoteUrl = quoteUrlPrefix + encodeURI(symbolString) + quoteUrlSuffix;
 
-        if (symbolString == "") {
+        if (symbolString === '') {
             $scope.quotes = {};
 
         } else {

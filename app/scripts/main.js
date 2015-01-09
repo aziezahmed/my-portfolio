@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('myPortfolioApp', ['ngRoute', "googlechart"]).config(function ($routeProvider) {
+angular.module('myPortfolioApp', ['ngRoute', 'googlechart']).config(function ($routeProvider) {
     'use strict';
     $routeProvider.when('/', {
         controller: 'OverviewController',
