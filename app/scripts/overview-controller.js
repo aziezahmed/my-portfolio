@@ -39,7 +39,6 @@
                 $scope.quotes = {};
 
             } else {
-
                 $http({
                     url: quoteUrl
                 }).success(function (quotes) {
@@ -49,6 +48,7 @@
                         $scope.quotes = quotes.query.results.row;
                     }
                 });
+
             }
         }
 
