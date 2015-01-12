@@ -95,14 +95,21 @@
             setStocks($scope.stocks);
         };
 
+        $scope.editStock = function (quote) {
+            $scope.symbolInput = quote.symbol;
+            $scope.numberOfSharesInput = $scope.stocks[quote.symbol].shares;
+            $('input[ng-model="numberOfSharesInput"]').focus();
+
+        };
+        
         $scope.addSymbol = function () {
-            $scope.stocks[$scope.symbolText.toUpperCase()] = {
-                shares: $scope.numberOfSharesText
+            $scope.stocks[$scope.symbolInput.toUpperCase()] = {
+                shares: $scope.numberOfSharesInput
             };
 
-            $scope.symbolText = '';
-            $scope.numberOfSharesText = '';
-            $('input[ng-model="symbolText"]').focus();
+            $scope.symbolInput = '';
+            $scope.numberOfSharesInput = '';
+            $('input[ng-model="symbolInput"]').focus();
 
             fetchData();
             setStocks($scope.stocks);
