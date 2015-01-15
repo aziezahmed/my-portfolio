@@ -72,7 +72,9 @@
 
         $scope.marketValue = function (symbol, price) {
             if ($scope.stocks[symbol]) {
-                return ($scope.stocks[symbol].shares * (price / 100));
+                if ($scope.stocks[symbol].shares) {
+                    return ($scope.stocks[symbol].shares * (price / 100));
+                }
             }
         };
 
