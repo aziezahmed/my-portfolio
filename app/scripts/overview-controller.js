@@ -98,8 +98,6 @@
         $scope.editStock = function (quote) {
             $scope.symbolInput = quote.symbol;
             $scope.numberOfSharesInput = $scope.stocks[quote.symbol].shares;
-            $('input[ng-model="numberOfSharesInput"]').focus();
-
         };
         
         $scope.addSymbol = function () {
@@ -109,7 +107,6 @@
 
             $scope.symbolInput = '';
             $scope.numberOfSharesInput = '';
-            $('input[ng-model="symbolInput"]').focus();
 
             fetchData();
             setStocks($scope.stocks);
