@@ -9,9 +9,9 @@
                 <th class="hidden-xs">Symbol</th>
                 <th>Name</th>
                 <th class="text-right">Price</th>
-                <th class="text-right hidden-xs">Change</th>
-                <th class="text-right">Shares</th>
-                <th class="text-right">Market Value</th>
+                <th class="text-right">Change</th>
+                <th class="text-right hidden-xs">Shares</th>
+                <th class="text-right hidden-xs">Market Value</th>
             </tr>
         </thead>
         <tbody>
@@ -21,9 +21,9 @@
                 <td class="hidden-xs">{{quote.symbol}}</td>
                 <td><a ng-href="#/detail/{{quote.symbol}}">{{quote.name}}</a></td>
                 <td class="text-right">{{quote.price | number:2}}</td>
-                <td class="text-right hidden-xs"><span class="label" ng-class="changeClass(quote.change)">{{quote.change | number:2}}</span></td>
-                <td class="text-right">{{numberOfShares(quote.symbol)}}</td>
-                <td class="text-right">{{marketValue(quote.symbol,quote.price) | number:2}}</td>
+                <td class="text-right"><span class="label" ng-class="changeClass(quote.change)">{{quote.change | number:2}}</span></td>
+                <td class="text-right hidden-xs">{{numberOfShares(quote.symbol)}}</td>
+                <td class="text-right hidden-xs">{{marketValue(quote.symbol,quote.price) | number:2}}</td>
             </tr>
         </tbody>
     </table>
@@ -33,7 +33,7 @@
             <label>Symbol</label>
             <input ng-model="symbolInput" type="text" class="form-control" placeholder="Enter symbol, e.g. YHOO">
         </div>
-        <div class="form-group">
+        <div class="form-group hidden-xs">
             <label>Number of Shares</label>
             <input ng-model="numberOfSharesInput" type="number" class="form-control" placeholder="Enter number of shares, e.g. 100">
         </div>
