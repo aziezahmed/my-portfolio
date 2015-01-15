@@ -14,4 +14,9 @@
             redirectTo: '/'
         });
     });
+
+    angular.module('myPortfolioApp').config(function ($compileProvider) {
+        $compileProvider.debugInfoEnabled(false);
+    });
+
 })();

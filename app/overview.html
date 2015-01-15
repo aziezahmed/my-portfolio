@@ -9,11 +9,11 @@
                 <th class="hidden-xs">Symbol</th>
                 <th>Name</th>
                 <th class="text-right">Price</th>
-                <th class="text-right hidden-xs">Change</th>
-                <th class="text-right">Shares</th>
-                <th class="text-right">Purchase Price</th>
-                <th class="text-right">Market Value</th>
-                <th class="text-right">Gain/Loss</th>
+                <th class="text-right">Change</th>
+                <th class="text-right hidden-xs">Shares</th>
+                <th class="text-right hidden-xs">Purchase Price</th>
+                <th class="text-right hidden-xs">Market Value</th>
+                <th class="text-right hidden-xs">Gain/Loss</th>
             </tr>
         </thead>
         <tbody>
@@ -23,12 +23,11 @@
                 <td class="hidden-xs">{{quote.symbol}}</td>
                 <td><a ng-href="#/detail/{{quote.symbol}}">{{quote.name}}</a></td>
                 <td class="text-right">{{quote.price | number:2}}</td>
-                <td class="text-right hidden-xs"><span class="label" ng-class="changeClass(quote.change)">{{quote.change | number:2}}</span></td>
-                <td class="text-right">{{numberOfShares(quote.symbol)}}</td>
-                <td class="text-right">{{purchasePrice(quote.symbol)}}</td>
-                <td class="text-right">{{marketValue(quote.symbol,quote.price) | number:2}}</td>
-                <td class="text-right"><span class="label" ng-class="gainLossClass(quote.symbol,quote.price)">{{gainLoss(quote.symbol,quote.price) | number:2}}</span></td>
-            </tr>
+                <td class="text-right"><span class="label" ng-class="changeClass(quote.change)">{{quote.change | number:2}}</span></td>
+                <td class="text-right hidden-xs">{{numberOfShares(quote.symbol)}}</td>
+                <td class="text-right hidden-xs">{{purchasePrice(quote.symbol) | number:2}}</td>
+                <td class="text-right hidden-xs">{{marketValue(quote.symbol,quote.price) | number:2}}</td>
+                <td class="text-right hidden-xs"><span class="label" ng-class="gainLossClass(quote.symbol,quote.price)">{{gainLoss(quote.symbol,quote.price) | number:2}}</span></td>
         </tbody>
     </table>
     <h4 class="page-header">Add Symbol</h4>
@@ -37,11 +36,11 @@
             <label>Symbol</label>
             <input ng-model="symbolInput" type="text" class="form-control" placeholder="Enter symbol, e.g. YHOO">
         </div>
-        <div class="form-group">
+        <div class="form-group hidden-xs">
             <label>Number of Shares</label>
             <input ng-model="numberOfSharesInput" type="number" class="form-control" placeholder="Enter number of shares, e.g. 100">
         </div>
-        <div class="form-group">
+        <div class="form-group hidden-xs">
             <label>Purchase Price</label>
             <input ng-model="purchasePriceInput" type="number" class="form-control" placeholder="Enter purchase price, e.g. 99.95">
         </div>
