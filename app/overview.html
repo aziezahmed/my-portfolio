@@ -11,7 +11,9 @@
                 <th class="text-right">Price</th>
                 <th class="text-right hidden-xs">Change</th>
                 <th class="text-right">Shares</th>
+                <th class="text-right">Purchase Price</th>
                 <th class="text-right">Market Value</th>
+                <th class="text-right">Gain/Loss</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +25,9 @@
                 <td class="text-right">{{quote.price | number:2}}</td>
                 <td class="text-right hidden-xs"><span class="label" ng-class="changeClass(quote.change)">{{quote.change | number:2}}</span></td>
                 <td class="text-right">{{numberOfShares(quote.symbol)}}</td>
+                <td class="text-right">{{purchasePrice(quote.symbol)}}</td>
                 <td class="text-right">{{marketValue(quote.symbol,quote.price) | number:2}}</td>
+                <td class="text-right"><span class="label" ng-class="gainLossClass(quote.symbol,quote.price)">{{gainLoss(quote.symbol,quote.price) | number:2}}</span></td>
             </tr>
         </tbody>
     </table>
@@ -36,6 +40,10 @@
         <div class="form-group">
             <label>Number of Shares</label>
             <input ng-model="numberOfSharesInput" type="number" class="form-control" placeholder="Enter number of shares, e.g. 100">
+        </div>
+        <div class="form-group">
+            <label>Purchase Price</label>
+            <input ng-model="purchasePriceInput" type="number" class="form-control" placeholder="Enter purchase price, e.g. 99.95">
         </div>
         <button type="submit" class="btn btn-default" value="add">Add</button>
     </form>

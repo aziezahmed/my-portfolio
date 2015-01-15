@@ -6,13 +6,16 @@
 
         var defaultSymbolList = {
             'YHOO': {
-                shares: 100
+                shares: 100,
+                purchasePrice: 100
             },
             'GOOG': {
-                shares: 50
+                shares: 50,
+                purchasePrice: 100
             },
             'MSFT': {
-                shares: 150
+                shares: 150,
+                purchasePrice: 100
             }
         };
 
@@ -63,16 +66,36 @@
                 return 'label-success';
             }
         };
-
+        
+        $scope.gainLossClass = function (symbol, price) {
+            if ($scope.gainLoss(symbol, price) < 0) {
+                return 'label-danger';
+            } else {
+                return 'label-success';
+            }
+        };        
+        
         $scope.numberOfShares = function (symbol) {
             if ($scope.stocks[symbol]) {
                 return $scope.stocks[symbol].shares;
             }
         };
-
+        
+        $scope.purchasePrice = function (symbol) {
+            if ($scope.stocks[symbol]) {
+                return $scope.stocks[symbol].purchasePrice;
+            }
+        };
+        
         $scope.marketValue = function (symbol, price) {
             if ($scope.stocks[symbol]) {
                 return ($scope.stocks[symbol].shares * (price / 100));
+            }
+        };
+        
+        $scope.gainLoss = function (symbol, price) {
+            if ($scope.stocks[symbol]) {
+                return ($scope.marketValue(symbol, price) - $scope.stocks[symbol].purchasePrice);
             }
         };
 
@@ -98,17 +121,22 @@
         $scope.editStock = function (quote) {
             $scope.symbolInput = quote.symbol;
             $scope.numberOfSharesInput = $scope.stocks[quote.symbol].shares;
+            $scope.purchasePriceInput = $scope.stocks[quote.symbol].purchasePrice;
+
             $('input[ng-model="numberOfSharesInput"]').focus();
 
         };
         
         $scope.addSymbol = function () {
             $scope.stocks[$scope.symbolInput.toUpperCase()] = {
-                shares: $scope.numberOfSharesInput
+                shares: $scope.numberOfSharesInput,
+                purchasePrice: $scope.purchasePriceInput
             };
 
             $scope.symbolInput = '';
             $scope.numberOfSharesInput = '';
+            $scope.purchasePriceInput = '';
+
             $('input[ng-model="symbolInput"]').focus();
 
             fetchData();
