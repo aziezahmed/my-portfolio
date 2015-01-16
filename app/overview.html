@@ -31,10 +31,10 @@
         </tbody>
     </table>
     <h4 class="page-header">Add Symbol</h4>
-    <form ng-submit="addSymbol()">
+    <form name="symbolForm" ng-submit="symbolForm.$valid && addSymbol()" novalidate>
         <div class="form-group">
             <label>Symbol</label>
-            <input ng-model="symbolInput" type="text" class="form-control" placeholder="Enter symbol, e.g. YHOO">
+            <input ng-model="symbolInput" type="text" class="form-control" placeholder="Enter symbol, e.g. YHOO" required>
         </div>
         <div class="form-group hidden-xs">
             <label>Number of Shares</label>
