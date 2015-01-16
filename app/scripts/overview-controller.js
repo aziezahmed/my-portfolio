@@ -2,50 +2,55 @@
 (function () {
     'use strict';
 
+    var quoteUrl = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%22http%3A%2F%2Fdownload.finance.yahoo.com%2Fd%2Fquotes.csv%3Fs%3D[SYMBOL]%26f%3Dsnl1c1%26e%3D.csv%22%20and%20columns%3D%22symbol%2Cname%2Cprice%2Cchange%22&format=json&diagnostics=true&callback=';
+    
+    var defaultSymbolList = {
+        'YHOO': {
+            shares: 100,
+            purchasePrice: 40
+        },
+        'GOOG': {
+            shares: 50,
+            purchasePrice: 270
+        },
+        'MSFT': {
+            shares: 150,
+            purchasePrice: 47
+        }
+    };
+
+    function setStocksFromLocalStorage() {
+        if (localStorage.symbolList) {
+            return JSON.parse(localStorage.symbolList);
+        } else {
+            return defaultSymbolList;
+        }
+    }
+
+    function saveStocksInLocalStorage(stocks) {
+        localStorage.symbolList = JSON.stringify(stocks);
+    }
+
+
     angular.module('myPortfolioApp').controller('OverviewController', function OverviewController($scope, $http) {
 
-        var defaultSymbolList = {
-            'YHOO': {
-                shares: 100,
-                purchasePrice: 40
-            },
-            'GOOG': {
-                shares: 50,
-                purchasePrice: 270
-            },
-            'MSFT': {
-                shares: 150,
-                purchasePrice: 47
-            }
-        };
+        $scope.stocks = setStocksFromLocalStorage();
 
-        function getStocks() {
-            if (localStorage.symbolList) {
-                return JSON.parse(localStorage.symbolList);
-            } else {
-                return defaultSymbolList;
-            }
-        }
+        $scope.quotes = [];
 
-        function setStocks(stocks) {
-            localStorage.symbolList = JSON.stringify(stocks);
-        }
-
-        function fetchData() {
-            var quoteUrlPrefix = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%22http%3A%2F%2Fdownload.finance.yahoo.com%2Fd%2Fquotes.csv%3Fs%3D';
-            var quoteUrlSuffix = '%26f%3Dsnl1c1%26e%3D.csv%22%20and%20columns%3D%22symbol%2Cname%2Cprice%2Cchange%22&format=json&diagnostics=true&callback=';
+        $scope.fetchData = function() {
+            
             var symbolString = Object.keys($scope.stocks).join(',');
-
-            var quoteUrl = quoteUrlPrefix + encodeURI(symbolString) + quoteUrlSuffix;
 
             if (symbolString === '') {
                 $scope.quotes = {};
 
             } else {
+                
                 $http({
-                    url: quoteUrl
+                    url: quoteUrl.replace('[SYMBOL]', encodeURI(symbolString))
                 }).success(function (quotes) {
-                    if (!(quotes.query.results.row instanceof Array)) {
+                    if (quotes.query.count === 1) {
                         $scope.quotes = new Array(quotes.query.results.row);
                     } else {
                         $scope.quotes = quotes.query.results.row;
@@ -53,11 +58,7 @@
                 });
 
             }
-        }
-
-        $scope.stocks = getStocks();
-
-        $scope.quotes = [];
+        };
 
         $scope.changeClass = function (change) {
             if (change < 0) {
@@ -118,8 +119,8 @@
 
         $scope.deleteStock = function (quote) {
             delete $scope.stocks[quote.symbol];
-            fetchData();
-            setStocks($scope.stocks);
+            $scope.fetchData();
+            saveStocksInLocalStorage($scope.stocks);
         };
 
         $scope.editStock = function (quote) {
@@ -138,10 +139,9 @@
             $scope.numberOfSharesInput = '';
             $scope.purchasePriceInput = '';
 
-            fetchData();
-            setStocks($scope.stocks);
+            $scope.fetchData();
+            saveStocksInLocalStorage($scope.stocks);
         };
 
-        fetchData();
     });
 })();
