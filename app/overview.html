@@ -31,7 +31,7 @@
         </tbody>
     </table>
     <h4 class="page-header">Add Symbol</h4>
-    <form name="symbolForm" ng-submit="symbolForm.$valid && addSymbol()" novalidate>
+    <form name="symbolForm" ng-submit="addSymbol()">
         <div class="form-group">
             <label>Symbol</label>
             <input ng-model="symbolInput" type="text" class="form-control" placeholder="Enter symbol, e.g. YHOO" required>
