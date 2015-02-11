@@ -2,7 +2,7 @@
 (function () {
     'use strict';
     angular.module('myPortfolioApp', ['ngRoute', 'ngTouch', 'googlechart']);
-    
+
     angular.module('myPortfolioApp').config(function ($routeProvider) {
         $routeProvider.when('/', {
             controller: 'OverviewController',
@@ -19,6 +19,15 @@
 
     angular.module('myPortfolioApp').config(function ($compileProvider) {
         $compileProvider.debugInfoEnabled(false);
+    });
+
+
+    angular.module('myPortfolioApp').controller('NavController', function NavController($scope, $route, $location) {
+        $scope.getClass = function(param){
+            if (param == $location.path()){
+                return "active";
+            }
+        }
     });
 
 })();
