@@ -24,10 +24,10 @@
 
     angular.module('myPortfolioApp').controller('NavController', function NavController($scope, $route, $location) {
         $scope.getClass = function(param){
-            if (param == $location.path()){
-                return "active";
+            if (param === $location.path()){
+                return 'active';
             }
-        }
+        };
     });
 
 })();
