@@ -32,7 +32,7 @@
     }
 
 
-    angular.module('myPortfolioApp').controller('OverviewController', function OverviewController($scope, $http) {
+    angular.module('myPortfolioApp').controller('PortfolioController', function PortfolioController($scope, $http) {
 
         $scope.stocks = setStocksFromLocalStorage();
 
