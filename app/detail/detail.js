@@ -13,7 +13,7 @@
     var quoteUrl = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%22http%3A%2F%2Fdownload.finance.yahoo.com%2Fd%2Fquotes.csv%3Fs%3D[SYMBOL]%26f%3Dsnxc4l1pc1p2kj%26e%3D.csv%22%20and%20columns%3D%22symbol%2Cname%2Cexchange%2Ccurrency%2Cprice%2CpreviousClose%2Cchange%2CpercentChange%2CyearHigh%2CyearLow%22&format=json&diagnostics=true&callback=';
 
 
-    angular.module('myPortfolioApp').controller('DetailController', function StockController($scope, $http, $routeParams) {
+    angular.module('myPortfolioApp').controller('DetailController', function StockController($scope, $http, $route, $location, $routeParams) {
 
         $scope.quote = [];
         

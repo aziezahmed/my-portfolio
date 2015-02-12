@@ -1,0 +1,35 @@
+<div id="portfolio_view" ng-init="fetchData()">
+    <h1 class="page-header">My Portfolio</h1>
+    <p class="lead">Watch List</p>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th class="table-icons hidden-xs"></th>
+                <th class="hidden-xs">Symbol</th>
+                <th>Name</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Change</th>
+                                <th class="text-right">Market Cap</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="quote in quotes" ng-swipe-left="deleteStock(quote)" ng-swipe-right="deleteStock(quote)">
+                <td class="hidden-xs"><small><span ng-click="deleteStock(quote)" class="delete_button glyphicon glyphicon-trash" aria-hidden="true"></span></small></td>
+                <td class="hidden-xs">{{quote.symbol}}</td>
+                <td><a ng-href="#/detail/{{quote.symbol}}">{{quote.name}}</a></td>
+                <td class="text-right">{{quote.price | number:2}}</td>
+                <td class="text-right"><span class="label" ng-class="changeClass(quote.change)">{{quote.change | number:2}}</span></td>
+                                <td class="text-right">{{quote.mcap}}</td>
+
+        </tbody>
+    </table>
+    <h4 class="page-header">Add Symbol</h4>
+    <form name="symbolForm" ng-submit="addSymbol()">
+        <div class="form-group">
+            <label>Symbol</label>
+            <input ng-model="symbolInput" type="text" class="form-control" placeholder="Enter symbol, e.g. YHOO" required>
+        </div>
+        <button type="submit" class="btn btn-default" value="add">Add</button>
+    </form>
+</div>
