@@ -5,8 +5,8 @@
 
     angular.module('myPortfolioApp').config(function ($routeProvider) {
         $routeProvider.when('/', {
-            controller: 'OverviewController',
-            templateUrl: 'overview.html'
+            controller: 'PortfolioController',
+            templateUrl: 'portfolio.html'
 
         }).when('/detail/:symbolId', {
             controller: 'DetailController',
