@@ -6,11 +6,11 @@
     angular.module('myPortfolioApp').config(function ($routeProvider) {
         $routeProvider.when('/', {
             controller: 'PortfolioController',
-            templateUrl: 'portfolio.html'
+            templateUrl: 'portfolio/portfolio.html'
 
         }).when('/detail/:symbolId', {
             controller: 'DetailController',
-            templateUrl: 'detail.html'
+            templateUrl: 'detail/detail.html'
 
         }).otherwise({
             redirectTo: '/'
@@ -20,7 +20,6 @@
     angular.module('myPortfolioApp').config(function ($compileProvider) {
         $compileProvider.debugInfoEnabled(false);
     });
-
 
     angular.module('myPortfolioApp').controller('NavController', function NavController($scope, $route, $location) {
         $scope.getClass = function(param){
