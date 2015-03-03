@@ -4,7 +4,7 @@
 
     var quoteUrl = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%22http%3A%2F%2Fdownload.finance.yahoo.com%2Fd%2Fquotes.csv%3Fs%3D[SYMBOL]%26f%3Dsnl1c1j1%26e%3D.csv%22%20and%20columns%3D%22symbol%2Cname%2Cprice%2Cchange%2Cmcap%22&format=json&diagnostics=true&callback=';
 
-    var defaultSymbolList = ['YHOO', 'GOOG', 'MSFT'];
+    var defaultSymbolList = ['YHOO', 'GOOG', 'MSFT', 'AAPL', 'IBM'];
 
     function setStocksFromLocalStorage() {
         if (localStorage.watchList) {

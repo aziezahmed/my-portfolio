@@ -5,12 +5,12 @@
 
     angular.module('myPortfolioApp').config(function ($routeProvider) {
         $routeProvider.when('/', {
-            controller: 'PortfolioController',
-            templateUrl: 'portfolio/portfolio.html'
-
-        }).when('/watchlist', {
             controller: 'WatchListController',
             templateUrl: 'watchlist/watchlist.html'
+
+        }).when('/portfolio', {
+            controller: 'PortfolioController',
+            templateUrl: 'portfolio/portfolio.html'
 
         }).when('/detail/:symbolId', {
             controller: 'DetailController',
