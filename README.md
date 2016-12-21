@@ -1,16 +1,9 @@
-My Portfolio
-============
-
-A web-app for monitoring the performance of your stocks and shares portfolio.
-
-See Demo:
----------
-http://aziezahmed.github.io/my-portfolio/
-
 # My Portfolio
 
 A web-app for monitoring the performance of your stocks and shares portfolio.
 Makes use of [Yahoo Query Langage](https://developer.yahoo.com/yql/) to get live financal data.
+
+* http://aziezahmed.github.io/my-portfolio/
 
 ## Getting Started
 
