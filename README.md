@@ -35,7 +35,7 @@ See a demonstration of My Portfolio here.
 
 ## Authors
 
-* **Aziez Ahmed Chawdhary(https://github.com/aziezahmed)**
+* **[Aziez Ahmed Chawdhary](https://github.com/aziezahmed)**
 
 
 ## License
