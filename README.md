@@ -32,11 +32,9 @@ See a demonstration of My Portfolio here.
 * [Angular.js](https://angularjs.org) 
 * [Yahoo Query Langage](https://developer.yahoo.com/yql/)
 
-
 ## Authors
 
 * **[Aziez Ahmed Chawdhary](https://github.com/aziezahmed)**
-
 
 ## License
 
