@@ -1,6 +1,6 @@
 # My Portfolio
 
-# No longer in a working due to API changes
+# <i>No longer in a working due to API changes</i>
 
 A web-app for monitoring the performance of your stocks and shares portfolio.
 Makes use of [Yahoo Query Langage](https://developer.yahoo.com/yql/) to get live financal data.
